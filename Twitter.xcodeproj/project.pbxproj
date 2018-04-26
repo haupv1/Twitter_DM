@@ -19,6 +19,11 @@
 		57AAC445208F253F00EE54E0 /* BL_TwitterRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 57AAC444208F253F00EE54E0 /* BL_TwitterRequest.m */; };
 		57AAC448208F271700EE54E0 /* Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = 57AAC447208F271700EE54E0 /* Base64.m */; };
 		57AAC44C208F4A5500EE54E0 /* VerifyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 57AAC44B208F4A5500EE54E0 /* VerifyViewController.m */; };
+		57DF70582090C91600831D3E /* FollowerTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 57DF70572090C91600831D3E /* FollowerTableViewController.m */; };
+		57DF705F2090E12900831D3E /* chat_arrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 57DF705C2090E12800831D3E /* chat_arrow@2x.png */; };
+		57DF70602090E12900831D3E /* chat_arrow@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 57DF705D2090E12900831D3E /* chat_arrow@3x.png */; };
+		57DF70612090E12900831D3E /* chat_arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 57DF705E2090E12900831D3E /* chat_arrow.png */; };
+		57DF70642090E13000831D3E /* AGChatViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 57DF70622090E13000831D3E /* AGChatViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -62,6 +67,14 @@
 		57AAC447208F271700EE54E0 /* Base64.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Base64.m; sourceTree = "<group>"; };
 		57AAC44A208F4A5500EE54E0 /* VerifyViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VerifyViewController.h; sourceTree = "<group>"; };
 		57AAC44B208F4A5500EE54E0 /* VerifyViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VerifyViewController.m; sourceTree = "<group>"; };
+		57DEC0722091B925006AA252 /* UserMessage.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UserMessage.h; sourceTree = "<group>"; };
+		57DF70562090C91600831D3E /* FollowerTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FollowerTableViewController.h; sourceTree = "<group>"; };
+		57DF70572090C91600831D3E /* FollowerTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FollowerTableViewController.m; sourceTree = "<group>"; };
+		57DF705C2090E12800831D3E /* chat_arrow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "chat_arrow@2x.png"; sourceTree = "<group>"; };
+		57DF705D2090E12900831D3E /* chat_arrow@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "chat_arrow@3x.png"; sourceTree = "<group>"; };
+		57DF705E2090E12900831D3E /* chat_arrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = chat_arrow.png; sourceTree = "<group>"; };
+		57DF70622090E13000831D3E /* AGChatViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AGChatViewController.m; sourceTree = "<group>"; };
+		57DF70632090E13000831D3E /* AGChatViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AGChatViewController.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -112,6 +125,9 @@
 		57A5BFE7208D9E6500F1C597 /* PostRequest */ = {
 			isa = PBXGroup;
 			children = (
+				57DF705B2090E11600831D3E /* Images */,
+				57DF70592090E04800831D3E /* ChatView */,
+				57DF70552090C8EC00831D3E /* MainScreen */,
 				57AAC449208F4A1E00EE54E0 /* LaunchScreen */,
 				57AAC446208F271600EE54E0 /* Base64.h */,
 				57AAC447208F271700EE54E0 /* Base64.m */,
@@ -156,6 +172,35 @@
 				57AAC44B208F4A5500EE54E0 /* VerifyViewController.m */,
 			);
 			path = LaunchScreen;
+			sourceTree = "<group>";
+		};
+		57DF70552090C8EC00831D3E /* MainScreen */ = {
+			isa = PBXGroup;
+			children = (
+				57DF70562090C91600831D3E /* FollowerTableViewController.h */,
+				57DF70572090C91600831D3E /* FollowerTableViewController.m */,
+			);
+			path = MainScreen;
+			sourceTree = "<group>";
+		};
+		57DF70592090E04800831D3E /* ChatView */ = {
+			isa = PBXGroup;
+			children = (
+				57DF70632090E13000831D3E /* AGChatViewController.h */,
+				57DF70622090E13000831D3E /* AGChatViewController.m */,
+				57DEC0722091B925006AA252 /* UserMessage.h */,
+			);
+			path = ChatView;
+			sourceTree = "<group>";
+		};
+		57DF705B2090E11600831D3E /* Images */ = {
+			isa = PBXGroup;
+			children = (
+				57DF705E2090E12900831D3E /* chat_arrow.png */,
+				57DF705C2090E12800831D3E /* chat_arrow@2x.png */,
+				57DF705D2090E12900831D3E /* chat_arrow@3x.png */,
+			);
+			path = Images;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -261,7 +306,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				57DF705F2090E12900831D3E /* chat_arrow@2x.png in Resources */,
+				57DF70612090E12900831D3E /* chat_arrow.png in Resources */,
 				57A5BFF8208D9E6700F1C597 /* LaunchScreen.storyboard in Resources */,
+				57DF70602090E12900831D3E /* chat_arrow@3x.png in Resources */,
 				57A5BFF5208D9E6700F1C597 /* Assets.xcassets in Resources */,
 				57A5BFF0208D9E6500F1C597 /* Main.storyboard in Resources */,
 			);
@@ -288,7 +336,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				57DF70642090E13000831D3E /* AGChatViewController.m in Sources */,
 				57AAC44C208F4A5500EE54E0 /* VerifyViewController.m in Sources */,
+				57DF70582090C91600831D3E /* FollowerTableViewController.m in Sources */,
 				57AAC445208F253F00EE54E0 /* BL_TwitterRequest.m in Sources */,
 				57A5BFF3208D9E6500F1C597 /* PostRequest.xcdatamodeld in Sources */,
 				57A5BFED208D9E6500F1C597 /* ViewController.m in Sources */,
@@ -464,6 +514,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 8287V7L29H;
 				INFOPLIST_FILE = PostRequest/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -480,6 +531,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 8287V7L29H;
 				INFOPLIST_FILE = PostRequest/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

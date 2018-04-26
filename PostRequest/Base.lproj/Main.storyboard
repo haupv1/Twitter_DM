@@ -6,6 +6,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -48,27 +49,12 @@
                     <navigationItem key="navigationItem" id="ZdN-ib-faW"/>
                     <connections>
                         <outlet property="pinText" destination="V7n-rC-t1A" id="Jsb-df-6Or"/>
-                        <segue destination="2Qc-hB-09w" kind="show" id="uD0-Wc-Rmw"/>
+                        <segue destination="Hye-LP-7kw" kind="show" identifier="Follower_list" id="HzX-ST-Xc2"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="994" y="92"/>
-        </scene>
-        <!--View Controller-->
-        <scene sceneID="uwN-kA-tha">
-            <objects>
-                <viewController id="2Qc-hB-09w" customClass="ViewController" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="sb7-Jk-gcM">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <viewLayoutGuide key="safeArea" id="vfg-Ud-4s2"/>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="fhT-qX-3TM" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1807.2" y="92.203898050974516"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="ec8-Sq-MKP">
@@ -87,6 +73,94 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Eo9-Hq-Pol" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="68" y="91.304347826086968"/>
+        </scene>
+        <!--Twitter DM-->
+        <scene sceneID="u51-BV-46J">
+            <objects>
+                <viewController id="Hye-LP-7kw" customClass="FollowerTableViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="dwz-sX-hqe">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="singleLineEtched" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="koO-en-2sm">
+                                <rect key="frame" x="16" y="85" width="343" height="562"/>
+                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                <color key="sectionIndexTrackingBackgroundColor" red="0.13378931290000001" green="0.26076610620000001" blue="0.72302056349999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="RecipeCell" rowHeight="65" id="ehp-l0-8U7">
+                                        <rect key="frame" x="0.0" y="55.5" width="343" height="65"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="ehp-l0-8U7" id="OhH-0Z-Fmm">
+                                            <rect key="frame" x="0.0" y="0.0" width="310" height="64.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <color key="tintColor" red="0.1508894962" green="0.2710074254" blue="0.72302056349999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <segue destination="K6f-D2-Mci" kind="show" identifier="showFollowerDetail" id="x4V-L7-g6E"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="Hye-LP-7kw" id="y2C-Dn-SVa"/>
+                                    <outlet property="delegate" destination="Hye-LP-7kw" id="qq5-gZ-gAI"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="koO-en-2sm" firstAttribute="leading" secondItem="dwz-sX-hqe" secondAttribute="leadingMargin" id="2Go-8v-aul"/>
+                            <constraint firstItem="koO-en-2sm" firstAttribute="top" secondItem="IdC-xZ-ewV" secondAttribute="top" constant="21" id="70B-4g-A6k"/>
+                            <constraint firstAttribute="bottom" secondItem="koO-en-2sm" secondAttribute="bottom" constant="20" symbolic="YES" id="Pgj-8t-ggc"/>
+                            <constraint firstItem="koO-en-2sm" firstAttribute="trailing" secondItem="dwz-sX-hqe" secondAttribute="trailingMargin" id="SXc-AL-IMi"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="IdC-xZ-ewV"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Twitter DM" id="cr2-xU-3XJ"/>
+                    <connections>
+                        <outlet property="tableView" destination="koO-en-2sm" id="NiB-1D-45Q"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="egk-SU-Ack" sceneMemberID="firstResponder"/>
+                <searchDisplayController id="h2a-tc-8p4">
+                    <connections>
+                        <outlet property="delegate" destination="Hye-LP-7kw" id="SnD-wJ-wj0"/>
+                        <outlet property="searchContentsController" destination="Hye-LP-7kw" id="soE-CM-kjf"/>
+                        <outlet property="searchResultsDataSource" destination="Hye-LP-7kw" id="Vtt-sA-yfP"/>
+                        <outlet property="searchResultsDelegate" destination="Hye-LP-7kw" id="XEw-Vn-Hgt"/>
+                    </connections>
+                </searchDisplayController>
+            </objects>
+            <point key="canvasLocation" x="1704.8" y="91.304347826086968"/>
+        </scene>
+        <!--Chat View Controller-->
+        <scene sceneID="UDO-Hl-Rdq">
+            <objects>
+                <viewController id="K6f-D2-Mci" customClass="AGChatViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="z7d-6W-265">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="fmX-7c-y4m">
+                                <rect key="frame" x="0.0" y="64" width="375" height="554"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="fmX-7c-y4m" secondAttribute="trailing" id="6pO-1X-72q"/>
+                            <constraint firstItem="fmX-7c-y4m" firstAttribute="top" secondItem="vLQ-tg-gPH" secondAttribute="top" id="Axf-mI-GR5"/>
+                            <constraint firstItem="fmX-7c-y4m" firstAttribute="leading" secondItem="z7d-6W-265" secondAttribute="leading" id="IXt-GX-LfS"/>
+                            <constraint firstItem="vLQ-tg-gPH" firstAttribute="bottom" secondItem="fmX-7c-y4m" secondAttribute="bottom" constant="49" id="kal-S2-xhM"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="vLQ-tg-gPH"/>
+                    </view>
+                    <connections>
+                        <outlet property="chatTableView" destination="fmX-7c-y4m" id="rpN-qn-WFa"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Lb5-2I-9nv" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2396" y="93.103448275862078"/>
         </scene>
     </scenes>
 </document>

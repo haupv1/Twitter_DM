@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "BL_TwitterRequest.h"
 
-@interface VerifyViewController : UIViewController<NSURLConnectionDelegate>
+@interface VerifyViewController : UIViewController<NSURLConnectionDelegate, BL_TwitterRequestDelegate>
 @property (weak, nonatomic) IBOutlet UITextField *pinText;
 @property BL_TwitterRequest *twitterRequest;
 @end

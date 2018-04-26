@@ -26,6 +26,7 @@
     for (int i = 0; i < sourceLen; ++i) {
         const unsigned char thisChar = source[i];
         if (thisChar == ' '){
+            NSLog(@"error here");
             [output appendString:@"+"];
         } else if (thisChar == '.' || thisChar == '-' || thisChar == '_' || thisChar == '~' ||
                    (thisChar >= 'a' && thisChar <= 'z') ||
@@ -41,6 +42,7 @@
 
 @end
 @implementation BL_TwitterRequest
+@synthesize followersList;
 -(NSString*) generateRandomStringOfLength:(int)length {
     
     NSString *letters = @"ABCDEFGHIJKLMNOPQRSTUVWXYZ123456";
@@ -171,7 +173,6 @@ const char* bytes = [hmac bytes];
     NSString *oauthConsumerKey = @"cj2x3KBVptKbGQnFe413Ku5Mb";
     NSString *oauthConsumerSecret = @"n1avlHQa2UCcIvKSVJo1N9CXaZm15rceHKTBes4cqL0mm9OSK3";
     NSString *oauthToken = self.oauth_token;
-    NSString *oauthTokenSecret = self.oauth_token_secret;
     NSString *oauthVerifier = self.pinCode;
     NSString *oauth_timestamp = [NSString stringWithFormat:@"%.f", [[NSDate date]timeIntervalSince1970]];
     NSString *oauthNonce = [self generateRandomStringOfLength:32];
@@ -185,7 +186,7 @@ const char* bytes = [hmac bytes];
     NSMutableString *parameterString = [[NSMutableString alloc]initWithFormat:@""];
     
 //    [parameterString appendFormat:@"oauth_callback=%@", [oauthCallback urlencode]];
-    [parameterString appendFormat:@"&oauth_consumer_key=%@", [oauthConsumerKey urlencode]];
+    [parameterString appendFormat:@"oauth_consumer_key=%@", [oauthConsumerKey urlencode]];
     [parameterString appendFormat:@"&oauth_token=%@", [oauthToken urlencode]];
     [parameterString appendFormat:@"&oauth_verifier=%@", [oauthVerifier urlencode]];
     [parameterString appendFormat:@"&oauth_nonce=%@", [oauthNonce urlencode]];
@@ -259,23 +260,21 @@ const char* bytes = [hmac bytes];
     NSString *oauthConsumerSecret = @"n1avlHQa2UCcIvKSVJo1N9CXaZm15rceHKTBes4cqL0mm9OSK3";
     NSString *oauthToken = self.oauth_token;
     NSString *oauthTokenSecret = self.oauth_token_secret;
-    NSString *oauth_timestamp = [NSString stringWithFormat:@"%.f", [[NSDate date]timeIntervalSince1970]];
-    NSString *oauthNonce = [self generateRandomStringOfLength:32];
+    NSString *oauth_timestamp = [NSString stringWithFormat:@"%.f", [[NSDate date]timeIntervalSince1970]];//@"1524633901";//
+    NSString *oauthNonce = [self generateRandomStringOfLength:32];//@"ABCDEFGHIJKLMNOPQRSTUVWXYZ123456";//
     NSString *oauthSignatureMethod = @"HMAC-SHA1";
     NSString *oauthVersion = @"1.0";
-    //    NSString *oauthCallback = @"oob";
-    
     //1. PERCENT CODE EVERY KEY AND VALUE THAT WILL BE SIGNED AND
     //   APPEND KEY AND VALUE WITH = AND &
     
     NSMutableString *parameterString = [[NSMutableString alloc]initWithFormat:@""];
-    [parameterString appendFormat:@"&oauth_consumer_key=%@", [oauthConsumerKey urlencode]];
-    [parameterString appendFormat:@"&oauth_token=%@", [oauthToken urlencode]];
+    [parameterString appendFormat:@"oauth_consumer_key=%@", [oauthConsumerKey urlencode]];
     [parameterString appendFormat:@"&oauth_nonce=%@", [oauthNonce urlencode]];
     [parameterString appendFormat:@"&oauth_signature_method=%@", [oauthSignatureMethod urlencode]];
     [parameterString appendFormat:@"&oauth_timestamp=%@", [oauth_timestamp urlencode]];
+    [parameterString appendFormat:@"&oauth_token=%@", [oauthToken urlencode]];
     [parameterString appendFormat:@"&oauth_version=%@", [oauthVersion urlencode]];
-    
+    NSLog(@"parameter string: %@",parameterString);
     //2. CREATE SIGNATURE STRING WITH HTTP METHOD AND ENCODED BASE URL AND PARAMETER STRING
     
     NSString *signatureBaseString = [NSString stringWithFormat:@"%@&%@&%@", httpMethod, [baseURL urlencode], [parameterString urlencode]];
@@ -287,13 +286,13 @@ const char* bytes = [hmac bytes];
     //4. GET THE OUTPUT OF THE HMAC ALOGRITHM
     
     NSString *oauthSignature = [self hmacsha1:signatureBaseString secret:signingKey];
-    
+    NSLog(@"author signature %@",oauthSignature);
     // TIME TO MAKE THE CALL NOW
     
     NSMutableString *urlString = [[NSMutableString alloc]initWithFormat:@""];
     
     [urlString appendFormat:@"%@", baseURL];
-    
+    NSLog(@"url string is: %@",urlString);
     // INITIALIZE AUTHORIZATION HEADER
     
     NSMutableString *authHeader = [[NSMutableString alloc]initWithFormat:@""];
@@ -319,13 +318,21 @@ const char* bytes = [hmac bytes];
         if (error) {
             NSLog(@"%@", [error localizedDescription]);
         } else {
-            NSLog(@"Get follower has loaded successfully.");
+            NSDictionary *jsonObject = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil];
+            NSDictionary *followers = [jsonObject objectForKey:@"users"];
+            NSEnumerator *enumerator = [followers objectEnumerator];
+            id value;
+            self.followersList = [[NSMutableArray alloc] init];
+            while ((value = [enumerator nextObject])) {
+                NSString* fol = [value objectForKey:@"name"];
+                [self.followersList addObject:fol];
+            }
+            [self.delegate completeLoaded];
             [self.webData appendData:data];
-            NSString *resultString = [[NSString alloc]initWithData:self.webData encoding:NSUTF8StringEncoding];
-            NSLog(@"RESULT STRING : %@", resultString);
         }
     }]resume];
 }
+
 /*
 - (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data {
     NSLog(@"ok connect ok");
@@ -365,7 +372,9 @@ const char* bytes = [hmac bytes];
             
         }];
     });
-}/*
+}
+
+/*
 - (void)connectionDidFinishLoading:(NSURLConnection *)connection {
     
     NSString *resultString = [[NSString alloc]initWithData:_webData encoding:NSUTF8StringEncoding];
