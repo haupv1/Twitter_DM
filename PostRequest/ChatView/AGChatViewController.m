@@ -18,7 +18,7 @@ NSMutableDictionary* allUserMessages;
 @property (nonatomic) UIView *viewBar;
 @property (nonatomic) UITextView *messageTV;
 @property (nonatomic) UIButton *sendButton;
-
+@property NSString* responseData;
 @end
 
 @implementation AGChatViewController
@@ -152,9 +152,8 @@ NSMutableDictionary* allUserMessages;
 //    [self.chatTableView reloadData];
 //    [self scrollToTheBottom:YES];
 //}
-- (void) showResponseMessage:(NSString*)txt{
-//    [NSThread sleepForTimeInterval:1.000];//1 seconds
-    UIView *responseMsg = [self createMessageWithText:txt Image:nil DateTime:[self getDateTimeStringFromNSDate:[NSDate date]] isReceived:1];
+- (void) showResponseMessage:(id)selector{
+    UIView *responseMsg = [self createMessageWithText:self.responseData Image:nil DateTime:[self getDateTimeStringFromNSDate:[NSDate date]] isReceived:1];
     [self.allMessages addObject:responseMsg];
     [self.chatTableView reloadData];
     [self scrollToTheBottom:YES];
@@ -170,11 +169,10 @@ NSMutableDictionary* allUserMessages;
 }
 - (void)sendAction: (id)selector
 {
-    NSString* responseData = [NSString stringWithFormat:@"%@. %@",self.messageTV.text,self.messageTV.text];
+    self.responseData = [NSString stringWithFormat:@"%@. %@",self.messageTV.text,self.messageTV.text];
     
     [self showSendMessage];
-    [self showResponseMessage:responseData];
-//    [self performSelector:@selector(showResponseMessage:andSelector:) withObject:responseData afterDelay:1];
+    [self performSelector:@selector(showResponseMessage:) withObject:nil afterDelay:1];
     // Add another task to the group
     
     //    [self showResponseMessage:responseData];
