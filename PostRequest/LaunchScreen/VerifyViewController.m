@@ -53,6 +53,7 @@
     if([segue.identifier isEqualToString:@"Follower_list"]){
             NSLog(@"enter segue show follower list");
             followersViewController = [segue destinationViewController];
+        [followersViewController waitTillLoadedData];
         }
     NSLog(@"following list: %@",followersViewController.followerArray);
 }

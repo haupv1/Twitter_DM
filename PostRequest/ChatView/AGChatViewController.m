@@ -22,7 +22,6 @@ NSMutableDictionary* allUserMessages;
 @end
 
 @implementation AGChatViewController
-
 #define Rgb2UIColor(r, g, b)  [UIColor colorWithRed:((r) / 255.0) green:((g) / 255.0) blue:((b) / 255.0) alpha:1.0]
 
 - (void)viewWillAppear:(BOOL)animated
@@ -146,8 +145,15 @@ NSMutableDictionary* allUserMessages;
 
 #pragma mark - Buttons' Actions
 
-- (void) showResponseMessage:(NSString*)txt andSelector:(id)selector{
-    [NSThread sleepForTimeInterval:2.000];//2 seconds
+//- (void) showResponseMessage:(NSString*)txt andSelector:(id)selector{
+////    [NSThread sleepForTimeInterval:1.000];//1 seconds
+//    UIView *responseMsg = [self createMessageWithText:txt Image:nil DateTime:[self getDateTimeStringFromNSDate:[NSDate date]] isReceived:1];
+//    [self.allMessages addObject:responseMsg];
+//    [self.chatTableView reloadData];
+//    [self scrollToTheBottom:YES];
+//}
+- (void) showResponseMessage:(NSString*)txt{
+//    [NSThread sleepForTimeInterval:1.000];//1 seconds
     UIView *responseMsg = [self createMessageWithText:txt Image:nil DateTime:[self getDateTimeStringFromNSDate:[NSDate date]] isReceived:1];
     [self.allMessages addObject:responseMsg];
     [self.chatTableView reloadData];
@@ -167,7 +173,8 @@ NSMutableDictionary* allUserMessages;
     NSString* responseData = [NSString stringWithFormat:@"%@. %@",self.messageTV.text,self.messageTV.text];
     
     [self showSendMessage];
-    [self performSelector:@selector(showResponseMessage:andSelector:) withObject:responseData afterDelay:1];
+    [self showResponseMessage:responseData];
+//    [self performSelector:@selector(showResponseMessage:andSelector:) withObject:responseData afterDelay:1];
     // Add another task to the group
     
     //    [self showResponseMessage:responseData];

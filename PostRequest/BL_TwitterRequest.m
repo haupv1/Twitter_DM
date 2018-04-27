@@ -26,7 +26,6 @@
     for (int i = 0; i < sourceLen; ++i) {
         const unsigned char thisChar = source[i];
         if (thisChar == ' '){
-            NSLog(@"error here");
             [output appendString:@"+"];
         } else if (thisChar == '.' || thisChar == '-' || thisChar == '_' || thisChar == '~' ||
                    (thisChar >= 'a' && thisChar <= 'z') ||
@@ -153,14 +152,10 @@ const char* bytes = [hmac bytes];
         if (error) {
             NSLog(@"%@", [error localizedDescription]);
         } else {
-            NSLog(@"Data has loaded successfully.");
             [self.webData appendData:data];
             NSString *resultString = [[NSString alloc]initWithData:self.webData encoding:NSUTF8StringEncoding];
             [self setOauthValueWithHTTPResponseBody:resultString];
             [self requestAuthentication];
-            NSLog(@"OAUTH is: %@",self.oauth_token);
-            NSLog(@"OAUTH secret is: %@",self.oauth_token_secret);
-            NSLog(@"RESULT STRING : %@", resultString);
         }
     }]resume];
 }
@@ -243,9 +238,6 @@ const char* bytes = [hmac bytes];
             [self.webData appendData:data];
             NSString *resultString = [[NSString alloc]initWithData:self.webData encoding:NSUTF8StringEncoding];
             [self setOauthValueWithHTTPResponseBody:resultString];
-            NSLog(@"OAUTH is: %@",self.oauth_token);
-            NSLog(@"OAUTH secret is: %@",self.oauth_token_secret);
-            NSLog(@"RESULT STRING : %@", resultString);
             [self getFollower];
         }
     }]resume];
@@ -274,25 +266,20 @@ const char* bytes = [hmac bytes];
     [parameterString appendFormat:@"&oauth_timestamp=%@", [oauth_timestamp urlencode]];
     [parameterString appendFormat:@"&oauth_token=%@", [oauthToken urlencode]];
     [parameterString appendFormat:@"&oauth_version=%@", [oauthVersion urlencode]];
-    NSLog(@"parameter string: %@",parameterString);
     //2. CREATE SIGNATURE STRING WITH HTTP METHOD AND ENCODED BASE URL AND PARAMETER STRING
     
     NSString *signatureBaseString = [NSString stringWithFormat:@"%@&%@&%@", httpMethod, [baseURL urlencode], [parameterString urlencode]];
-    NSLog(@"base string is: %@",signatureBaseString);
     //3. GET THE SIGNING KEY NOW FROM CONSUMER SECRET and
     
     NSString *signingKey = [NSString stringWithFormat:@"%@&%@", [oauthConsumerSecret urlencode],[oauthTokenSecret urlencode]];
-    NSLog(@"signing key: %@",signingKey);
     //4. GET THE OUTPUT OF THE HMAC ALOGRITHM
     
     NSString *oauthSignature = [self hmacsha1:signatureBaseString secret:signingKey];
-    NSLog(@"author signature %@",oauthSignature);
     // TIME TO MAKE THE CALL NOW
     
     NSMutableString *urlString = [[NSMutableString alloc]initWithFormat:@""];
     
     [urlString appendFormat:@"%@", baseURL];
-    NSLog(@"url string is: %@",urlString);
     // INITIALIZE AUTHORIZATION HEADER
     
     NSMutableString *authHeader = [[NSMutableString alloc]initWithFormat:@""];
@@ -311,7 +298,6 @@ const char* bytes = [hmac bytes];
     [authHeader appendFormat:@"oauth_version=\"%@\"", [oauthVersion urlencode]];
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc]initWithURL:[NSURL URLWithString:urlString]] ;
     [request setHTTPMethod:httpMethod];
-    NSLog(@"header is: %@",authHeader);
     [request setValue:authHeader forHTTPHeaderField:@"Authorization"];
     NSURLSession *mySession = [NSURLSession sharedSession];
     [[mySession dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
@@ -327,26 +313,15 @@ const char* bytes = [hmac bytes];
                 NSString* fol = [value objectForKey:@"name"];
                 [self.followersList addObject:fol];
             }
+            if(self.followersList.count == 0){
+                NSString* fol = @"No follower!";
+                [self.followersList addObject:fol];
+            }
             [self.delegate completeLoaded];
             [self.webData appendData:data];
         }
     }]resume];
 }
-
-/*
-- (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data {
-    NSLog(@"ok connect ok");
-    NSDictionary *jsonObject = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil];
-    //Speed:
-    NSString* oauth_token = [jsonObject valueForKey:@"oauth_token"];
-    NSLog(@"%@",oauth_token);
-    id vari;
-    vari = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
-    NSString* tempK = vari[@"oauth_token"];
-    NSLog(@"oauth is: %@",tempK);
-    [_webData appendData:data];
-}
- */
 - (void)setOauthValueWithHTTPResponseBody:(NSString *)body
 {
         NSArray *pairs = [body componentsSeparatedByString:@"&"];
@@ -373,15 +348,4 @@ const char* bytes = [hmac bytes];
         }];
     });
 }
-
-/*
-- (void)connectionDidFinishLoading:(NSURLConnection *)connection {
-    
-    NSString *resultString = [[NSString alloc]initWithData:_webData encoding:NSUTF8StringEncoding];
-    [self setOauthValueWithHTTPResponseBody:resultString];
-    [self requestAuthentication];
-    NSLog(@"OAUTH is: %@",self.oauth_token);
-    NSLog(@"RESULT STRING : %@", resultString);
-}
-  */
 @end
