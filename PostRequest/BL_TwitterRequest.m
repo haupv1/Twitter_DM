@@ -213,7 +213,6 @@ const char* bytes = [hmac bytes];
     [authHeader appendFormat:@"OAuth "]; // MIND THE SPACE AFTER 'OAuth'
     
     [authHeader appendFormat:@"oauth_nonce=\"%@\",", [oauthNonce urlencode]];
-//    [authHeader appendFormat:@"oauth_callback=\"%@\",", [oauthCallback urlencode]];
     [authHeader appendFormat:@"oauth_signature_method=\"%@\",", [oauthSignatureMethod urlencode]];
     [authHeader appendFormat:@"oauth_timestamp=\"%@\",", [oauth_timestamp urlencode]];
     [authHeader appendFormat:@"oauth_consumer_key=\"%@\",", [oauthConsumerKey urlencode]];
@@ -226,9 +225,6 @@ const char* bytes = [hmac bytes];
     [request setHTTPMethod:httpMethod];
     
     [request setValue:authHeader forHTTPHeaderField:@"Authorization"];
-    /*
-     NSURLConnection *connection = [[NSURLConnection alloc]initWithRequest:request delegate:self];
-     [connection start];*/
     NSURLSession *mySession = [NSURLSession sharedSession];
     [[mySession dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
         if (error) {
@@ -252,8 +248,8 @@ const char* bytes = [hmac bytes];
     NSString *oauthConsumerSecret = @"n1avlHQa2UCcIvKSVJo1N9CXaZm15rceHKTBes4cqL0mm9OSK3";
     NSString *oauthToken = self.oauth_token;
     NSString *oauthTokenSecret = self.oauth_token_secret;
-    NSString *oauth_timestamp = [NSString stringWithFormat:@"%.f", [[NSDate date]timeIntervalSince1970]];//@"1524633901";//
-    NSString *oauthNonce = [self generateRandomStringOfLength:32];//@"ABCDEFGHIJKLMNOPQRSTUVWXYZ123456";//
+    NSString *oauth_timestamp = [NSString stringWithFormat:@"%.f", [[NSDate date]timeIntervalSince1970]];
+    NSString *oauthNonce = [self generateRandomStringOfLength:32];
     NSString *oauthSignatureMethod = @"HMAC-SHA1";
     NSString *oauthVersion = @"1.0";
     //1. PERCENT CODE EVERY KEY AND VALUE THAT WILL BE SIGNED AND
@@ -290,10 +286,7 @@ const char* bytes = [hmac bytes];
     [authHeader appendFormat:@"oauth_signature_method=\"%@\",", [oauthSignatureMethod urlencode]];
     [authHeader appendFormat:@"oauth_timestamp=\"%@\",", [oauth_timestamp urlencode]];
     [authHeader appendFormat:@"oauth_consumer_key=\"%@\",", [oauthConsumerKey urlencode]];
-//    [authHeader appendFormat:@"oauth_token=\"%@\",", [oauthToken urlencode]];
     [authHeader appendFormat:@"oauth_token=\"%@\",", [oauthToken urlencode]];
-//    [authHeader appendFormat:@"oauth_token_secret=\"%@\",", [oauthToken urlencode]];
-
     [authHeader appendFormat:@"oauth_signature=\"%@\",", [oauthSignature urlencode]];
     [authHeader appendFormat:@"oauth_version=\"%@\"", [oauthVersion urlencode]];
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc]initWithURL:[NSURL URLWithString:urlString]] ;

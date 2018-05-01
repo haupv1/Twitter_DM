@@ -2,10 +2,9 @@
 //  AGChatViewController.m
 //  AGChatView
 //
-//  Created by Ashish Gogna on 09/04/16.
-//  Copyright © 2016 Ashish Gogna. All rights reserved.
+//  Created by Pham Van Hau on 4/23/18.
+//  Copyright © 2018 Pham Van Hau. All rights reserved.
 //
-
 #import "AGChatViewController.h"
 #import "UserMessage.h"
 NSMutableDictionary* allUserMessages;
